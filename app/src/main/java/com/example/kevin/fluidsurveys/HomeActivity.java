@@ -396,15 +396,15 @@ public class HomeActivity extends AppCompatActivity {
         protected void onPreExecute() {
             super.onPreExecute();
             ProgressDialog.setMessage("Loading Project List...");
-//            ProgressDialog.show();
+            ProgressDialog.show();
         }
 
         @Override
         protected void onPostExecute(String s) {
-//            ProgressDialog.dismiss();
             super.onPostExecute(s);
             JSONObject jsonObject;
 
+            ProgressDialog.dismiss();
             try {
                 jsonObject = new JSONObject(s);
                 JSONArray result = jsonObject.getJSONArray("result");
