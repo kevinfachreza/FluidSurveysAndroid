@@ -13,24 +13,15 @@
         android:paddingRight="@dimen/layout_padding"
         android:paddingTop="@dimen/layout_padding">
 
-        <ImageView
-            android:id="@+id/imageView4"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@mipmap/ic_launcher" />
-
-        <Space
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1" />
-
         <LinearLayout
-            android:layout_width="253dp"
+            android:layout_width="250dp"
             android:layout_height="wrap_content"
+            android:layout_marginRight="@dimen/small_margin"
+            android:layout_marginLeft="@dimen/small_margin"
             android:orientation="vertical">
 
             <TextView
-                android:id="@+id/textView5"
+                android:id="@+id/tvName"
                 android:layout_width="252dp"
                 android:layout_height="wrap_content"
                 android:text="Makanan di ITS"
@@ -38,26 +29,28 @@
                 android:textSize="18sp" />
 
             <TextView
-                android:id="@+id/textView6"
+                android:id="@+id/tvDetail"
+                android:layout_width="252dp"
+                android:layout_height="match_parent"
+                android:text="Makanan" />
+
+            <TextView
+                android:id="@+id/tvLocation"
                 android:layout_width="252dp"
                 android:layout_height="match_parent"
                 android:text="ITS" />
         </LinearLayout>
 
-        <LinearLayout
-            android:layout_width="50dp"
-            android:layout_height="47dp"
-            android:orientation="horizontal">
-
-            <TextView
-                android:id="@+id/textView10"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:gravity="center"
-                android:text="5"
-                android:textAppearance="@style/TextAppearance.AppCompat.Notification.Line2" />
-        </LinearLayout>
+        <TextView
+            android:id="@+id/tvSub"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            android:gravity="center"
+            android:text="5"
+            android:textAppearance="@style/TextAppearance.AppCompat.Notification.Line2" />
 
     </LinearLayout>
 </LinearLayout>
