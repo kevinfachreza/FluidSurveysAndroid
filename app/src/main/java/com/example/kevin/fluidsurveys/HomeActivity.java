@@ -12,10 +12,12 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -350,6 +352,7 @@ public class HomeActivity extends AppCompatActivity {
         public class Holder
         {
             TextView tvSub,tvDetail,tvLocation,tvName;
+            LinearLayout llView;
         }
 
         @Override
@@ -358,6 +361,7 @@ public class HomeActivity extends AppCompatActivity {
             Holder holder=new Holder();
             View rowView;
             rowView = inflater.inflate(R.layout.listtask, null);
+            holder.llView = (LinearLayout) rowView.findViewById(R.id.llView);
             holder.tvSub =(TextView) rowView.findViewById(R.id.tvSub);
             holder.tvDetail =(TextView) rowView.findViewById(R.id.tvDetail);
             holder.tvLocation =(TextView) rowView.findViewById(R.id.tvLocation);
@@ -367,6 +371,15 @@ public class HomeActivity extends AppCompatActivity {
             holder.tvDetail.setText(detail.get(position));
             holder.tvLocation.setText(location.get(position));
             holder.tvName.setText(name.get(position));
+
+            holder.llView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent intent = new Intent(HomeActivity.this, AssignmentActivity.class);
+                    intent.putExtra("PROJECT_ID", id.get(position));
+                    startActivity(intent);
+                }
+            });
 
             return rowView;
         }
@@ -396,7 +409,7 @@ public class HomeActivity extends AppCompatActivity {
                 jsonObject = new JSONObject(s);
                 JSONArray result = jsonObject.getJSONArray("result");
 
-                ArrayList<String> id = new ArrayList<>();
+                final ArrayList<String> id = new ArrayList<>();
                 ArrayList<String> name = new ArrayList<>();
                 ArrayList<String> location = new ArrayList<>();
                 ArrayList<String> detail = new ArrayList<>();
