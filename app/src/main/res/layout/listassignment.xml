@@ -25,7 +25,7 @@
                 android:id="@+id/tvName"
                 android:layout_width="252dp"
                 android:layout_height="wrap_content"
-                android:text="Makanan di ITS"
+                android:text="Assignment"
                 android:textAppearance="@style/TextAppearance.AppCompat.Body2"
                 android:textSize="18sp" />
 
@@ -33,25 +33,20 @@
                 android:id="@+id/tvDetail"
                 android:layout_width="252dp"
                 android:layout_height="match_parent"
-                android:text="Makanan" />
+                android:text="Detail"
+                android:textStyle="italic"/>
 
             <TextView
                 android:id="@+id/tvLocation"
                 android:layout_width="252dp"
                 android:layout_height="match_parent"
-                android:text="ITS" />
+                android:text="Location" />
         </LinearLayout>
 
-        <TextView
-            android:id="@+id/tvSub"
-            android:layout_width="wrap_content"
+        <ImageView
+            android:id="@+id/ivChoose"
+            android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:textSize="16sp"
-            android:textStyle="bold"
-            android:gravity="center"
-            android:text="5"
-            android:textAppearance="@style/TextAppearance.AppCompat.Notification.Line2" />
-
+            android:src="@drawable/right"/>
     </LinearLayout>
 </LinearLayout>

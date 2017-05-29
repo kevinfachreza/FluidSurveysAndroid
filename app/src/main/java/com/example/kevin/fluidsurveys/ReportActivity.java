@@ -4,8 +4,8 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
-import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -33,40 +33,40 @@ import java.util.ArrayList;
 
 import static android.view.View.GONE;
 
-public class AssignmentActivity extends AppCompatActivity {
+public class ReportActivity extends AppCompatActivity {
 
-    ListView lvAssignment;
-    String id_project;
+    ListView lvReport;
+    String id_assignment;
     TextView tvEmpty;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_assignment);
+        setContentView(R.layout.activity_report);
 
-        id_project = getIntent().getStringExtra("PROJECT_ID");
+        id_assignment = getIntent().getStringExtra("ASSIGNMENT_ID");
         tvEmpty = (TextView) findViewById(R.id.tvEmpty);
         tvEmpty.setVisibility(GONE);
 
-        lvAssignment = (ListView) findViewById(R.id.lvAssignment);
-
-        new getAssignment().execute();
+        lvReport = (ListView) findViewById(R.id.lvReport);
+        new getReport().execute();
     }
 
     public class ListAdapter extends BaseAdapter {
 
         Context context;
-        ArrayList<String> id, name, location, detail;
+        ArrayList<String> id, name, user, location, valuate;
 
         private LayoutInflater inflater=null;
-        public ListAdapter(android.app.Activity activity, ArrayList<String> id, ArrayList<String> name, ArrayList<String> detail,
-                           ArrayList<String> location) {
+        public ListAdapter(android.app.Activity activity, ArrayList<String> id, ArrayList<String> name, ArrayList<String> user,
+                           ArrayList<String> location, ArrayList<String> valuate) {
             // TODO Auto-generated constructor stub
             context=activity;
             this.id = id;
             this.name = name;
             this.location = location;
-            this.detail = detail;
+            this.user = user;
+            this.valuate = valuate;
             inflater = ( LayoutInflater )context.
                     getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         }
@@ -90,7 +90,7 @@ public class AssignmentActivity extends AppCompatActivity {
 
         public class Holder
         {
-            TextView tvDetail,tvLocation,tvName;
+            TextView tvUser,tvLocation,tvName,tvValuate;
             LinearLayout llView;
         }
 
@@ -99,21 +99,23 @@ public class AssignmentActivity extends AppCompatActivity {
             // TODO Auto-generated method stub
             Holder holder=new Holder();
             View rowView;
-            rowView = inflater.inflate(R.layout.listassignment, null);
-            holder.tvDetail =(TextView) rowView.findViewById(R.id.tvDetail);
+            rowView = inflater.inflate(R.layout.listreport, null);
+            holder.tvUser =(TextView) rowView.findViewById(R.id.tvUser);
             holder.tvName =(TextView) rowView.findViewById(R.id.tvName);
             holder.tvLocation =(TextView) rowView.findViewById(R.id.tvLocation);
+            holder.tvValuate =(TextView) rowView.findViewById(R.id.tvValuate);
             holder.llView =(LinearLayout) rowView.findViewById(R.id.llView);
 
-            holder.tvDetail.setText(detail.get(position));
+            holder.tvValuate.setText(valuate.get(position));
             holder.tvLocation.setText(location.get(position));
             holder.tvName.setText(name.get(position));
+            holder.tvUser.setText(user.get(position));
 
             holder.llView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    Intent intent = new Intent(AssignmentActivity.this, ReportActivity.class);
-                    intent.putExtra("ASSIGNMENT_ID", id.get(position));
+                    Intent intent = new Intent(ReportActivity.this, ReportDetailActivity.class);
+                    intent.putExtra("REPORT_ID", id.get(position));
                     startActivity(intent);
                 }
             });
@@ -122,17 +124,17 @@ public class AssignmentActivity extends AppCompatActivity {
         }
     }
 
-    class getAssignment extends AsyncTask<String, String, String> {
+    class getReport extends AsyncTask<String, String, String> {
         android.app.ProgressDialog ProgressDialog;
 
-        public getAssignment(){
-            ProgressDialog = new ProgressDialog(AssignmentActivity.this);
+        public getReport(){
+            ProgressDialog = new ProgressDialog(ReportActivity.this);
         }
 
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
-            ProgressDialog.setMessage("Loading Assignment List...");
+            ProgressDialog.setMessage("Loading Report List...");
             ProgressDialog.show();
         }
 
@@ -144,23 +146,25 @@ public class AssignmentActivity extends AppCompatActivity {
             ProgressDialog.dismiss();
             try {
                 jsonObject = new JSONObject(s);
-                JSONArray result = jsonObject.getJSONArray("assignment");
+                JSONArray result = jsonObject.getJSONArray("report");
 
                 ArrayList<String> id = new ArrayList<>();
                 ArrayList<String> name = new ArrayList<>();
                 ArrayList<String> location = new ArrayList<>();
-                ArrayList<String> detail = new ArrayList<>();
+                ArrayList<String> user = new ArrayList<>();
+                ArrayList<String> valuate = new ArrayList<>();
                 for(int i = 0; i<result.length(); i++){
                     JSONObject jo = result.getJSONObject(i);
                     id.add(jo.getString("id"));
-                    name.add(jo.getString("title"));
-                    location.add(jo.getString("place_name")+" - "+jo.getString("place_address"));
-                    detail.add(jo.getString("desc"));
+                    name.add(jo.getString("created_at"));
+                    user.add(jo.getString("created_by"));
+                    location.add(jo.getString("place_address"));
+                    valuate.add(jo.getString("valuate_message"));
                 }
                 if(result.length()==0) tvEmpty.setVisibility(View.VISIBLE);
                 else{
-                    ListAdapter listAdapter = new ListAdapter(AssignmentActivity.this, id, name, detail, location);
-                    lvAssignment.setAdapter(listAdapter);
+                    ListAdapter listAdapter = new ListAdapter(ReportActivity.this, id, name, user, location, valuate);
+                    lvReport.setAdapter(listAdapter);
                 }
             } catch (JSONException e) {
                 e.printStackTrace();
@@ -176,7 +180,7 @@ public class AssignmentActivity extends AppCompatActivity {
         protected String doInBackground(String... params) {
             StringBuilder stringBuilder = new StringBuilder();
 
-            String create_url = "http://fluidsurveys.dapatbuku.com/api/assignment/get/all";
+            String create_url = "http://fluidsurveys.dapatbuku.com/api/assignment/report/get/all";
             try {
                 URL url = new URL(create_url);
                 HttpURLConnection httpURLConnection = (HttpURLConnection)url.openConnection();
@@ -186,7 +190,7 @@ public class AssignmentActivity extends AppCompatActivity {
                 OutputStream outputStream = httpURLConnection.getOutputStream();
                 BufferedWriter bufferedWriter = new BufferedWriter(new OutputStreamWriter(outputStream,"UTF-8"));
                 String data =
-                        URLEncoder.encode("project", "UTF-8")+"="+URLEncoder.encode(id_project,"UTF-8");
+                        URLEncoder.encode("id", "UTF-8")+"="+URLEncoder.encode(id_assignment,"UTF-8");
                 bufferedWriter.write(data);
                 bufferedWriter.flush();
                 bufferedWriter.close();
