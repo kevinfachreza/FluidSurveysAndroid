@@ -22,37 +22,26 @@
             android:orientation="vertical">
 
             <TextView
-                android:id="@+id/tvName"
+                android:id="@+id/tvQuestion"
                 android:layout_width="252dp"
                 android:layout_height="wrap_content"
-                android:text="Report"
+                android:text="Question"
                 android:textAppearance="@style/TextAppearance.AppCompat.Body2"
                 android:textSize="18sp" />
 
             <TextView
-                android:id="@+id/tvUser"
+                android:id="@+id/tvCreated"
                 android:layout_width="252dp"
                 android:layout_height="match_parent"
-                android:text="User"
+                android:text="Created"
                 android:textStyle="italic"/>
-
-            <TextView
-                android:id="@+id/tvLocation"
-                android:layout_width="252dp"
-                android:layout_height="match_parent"
-                android:text="Location" />
-
-            <TextView
-                android:id="@+id/tvValuate"
-                android:layout_width="252dp"
-                android:layout_height="match_parent"
-                android:text="Valuate" />
         </LinearLayout>
 
         <ImageView
             android:id="@+id/ivChoose"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:src="@drawable/right"/>
+            android:layout_height="35dp"
+            android:layout_gravity="center_horizontal|center_vertical"
+            android:src="@drawable/plus"/>
     </LinearLayout>
 </LinearLayout>

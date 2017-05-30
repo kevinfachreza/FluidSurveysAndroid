@@ -7,7 +7,7 @@
   <version>1.0-SNAPSHOT</version>
   <packaging>jar</packaging>
 
-  <name>volley</name>
+  <question>volley</question>
   <url>http://android.com</url>
 
   <properties>
@@ -75,7 +75,7 @@
       <activation>
         <activeByDefault>true</activeByDefault>
         <property>
-          <name>performDebugBuild</name>
+          <question>performDebugBuild</question>
           <value>true</value>
         </property>
       </activation>

@@ -112,7 +112,7 @@ public class AssignmentActivity extends AppCompatActivity {
             holder.llView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    Intent intent = new Intent(AssignmentActivity.this, ReportActivity.class);
+                    Intent intent = new Intent(AssignmentActivity.this, ReportQuestActivity.class);
                     intent.putExtra("ASSIGNMENT_ID", id.get(position));
                     startActivity(intent);
                 }
